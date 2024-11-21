@@ -25,6 +25,7 @@ io.on('connection', (socket) => {
 
     // handle users when they join the chat
     socket.on('join', (username) => {
+        socket.username = username;
         users.add(username);
 
         // send the new user to all clients
@@ -39,9 +40,26 @@ io.on('connection', (socket) => {
         // send the message to all clients
         io.emit('chatMessage', message); 
     })
+    
+    // handle users when they leave the chat
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+
+        users.forEach(user => {
+            console.log('socket.username', socket.username)
+            if(user === socket.username) {
+                users.delete(user);
+
+                io.emit('userLeft', user);
+            }
+        })
+
+        // send the list of users to all clients
+        io.emit('userList', Array.from(users));
+    })
 })
 
-// handle users when they leave the chat
+
 
 const PORT = process.env.PORT || 3000;
 

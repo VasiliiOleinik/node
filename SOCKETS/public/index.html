@@ -52,6 +52,10 @@
             addMessage(`${message.username}: ${message.text}`);
         });
 
+        socket.on('userLeft', (username) => {
+            addMessage(`${username} left the chat`);
+        });
+
         messageForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const userMessage = messageInput.value.trim();
