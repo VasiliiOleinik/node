@@ -18,7 +18,7 @@
     </form>
     <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
     <script>
-        const socket = io('http://localhost:3000'); // Ensure the correct URL is used
+        const socket = io(); // Ensure the correct URL is used
         const messageForm = document.getElementById('message-form');
         const messageInput = document.getElementById('message-input');
         const chat = document.getElementById('chat');
